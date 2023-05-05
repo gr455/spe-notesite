@@ -1,0 +1,23 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+<div class = "container" style = "width: 400px;">
+	<h3>Login</h3>
+	<br>
+	{% if err_msgs %}
+		<div style = "color: red;">
+		{% for ele,err in err_msgs %}
+			<p>{{err}}</p>
+		{% endfor %}
+		</div>
+	{% endif %}
+	<form method = 'POST' class="col s12">
+
+		{% csrf_token %}
+		
+		{{login_form.as_p}}
+		<br>
+		<p><button type = "submit" class = "waves-effect waves-light btn" style = "background-color: teal">Log In</button></p>
+	</form>
+</div>
+{% endblock %}
