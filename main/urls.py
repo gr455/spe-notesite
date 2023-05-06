@@ -36,5 +36,18 @@ urlpatterns = [
                     path("settings/", views.user_settings, name = "user-settings")
                 ]))
 
-        ]))
+        ])),
+    path('<var>/', include([
+
+        path("", views.direct_path, name = "path"),
+        path("<var2>/", include([
+            path("", views.indirect_path, name = "ipath"),
+            path("<var3>/", include([
+                path("", views.show, name = "show"),
+                path("open", views.open_document, name = "open")
+
+                ])),
+        ])),
+
+    ])),
 ]

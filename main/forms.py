@@ -25,3 +25,15 @@ class NewUserForm(UserCreationForm):
 			if commit:
 				user.save()
 			return user
+
+class NoteForm(forms.ModelForm):
+	note_chapter = forms.ModelChoiceField(queryset = Chapter.objects.all(), widget=forms.Select(attrs={'class':'browser-default'})) #because the trash materialize overrides the choicefield
+	formfield_overrides = {
+		models.TextField: {
+							'widget': forms.Textarea(attrs={'rows':4, 'cols':40}),
+							}
+	}
+
+	class Meta:
+		model = Note
+		fields = ["note_title","note_summary","note_chapter"]
