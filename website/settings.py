@@ -119,7 +119,7 @@ DATABASES = {
 
         'PASSWORD': os.getenv('PG_PASS'),
 
-        'HOST': 'localhost',
+        'HOST': 'postgres',
 
         'PORT': '5432',
         }
