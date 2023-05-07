@@ -1,0 +1,104 @@
+<html>
+	<head>
+		{% load static %}
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<link href = "{% static 'thirdparty/materialize/css/materialize.css' %}" rel = "stylesheet" media="screen,projection">
+		<link href = "{% static 'style.css' %}" rel = "stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+		<script>
+			$(document).ready(function(){
+    			$('.sidenav').sidenav();
+  			})
+		</script>
+		<script>
+			$(document).ready(function(){
+    			$('.tooltipped').tooltip();
+  			});
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+
+	<body class = "body" style = "display: flex; min-height: 100vh; flex-direction: column;">
+		{% if not logged_in %}
+		<div class="navbar-fixed">
+			<nav class = "grey lighten-5" style = "position: fixed; z-index:999;">
+				<div class="nav-wrapper">
+					<a href="/" class="brand-logo black-text">Notesite</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons" style = "color: black;">menu</i></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="black-text" href="/login">Login</a></li>
+						<li><a class="black-text" href="/register">Register</a></li>
+						<li><a class="black-text" href="/">Home</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+			<ul class="sidenav" id="mobile-demo">
+			    <li><a class="black-text" href="/login">Login</a></li>
+				<li><a class="black-text" href="/register">Register</a></li>
+				<li><a class="black-text" href="/">Home</a></li>
+			</ul>
+		{% else %}
+		<div class="navbar-fixed">
+			<nav class = "grey lighten-5">
+				<div class="nav-wrapper">
+					<a href="/" class="brand-logo black-text">Notesite</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons" style = "color: black;">menu</i></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down" >
+						<li><a class="black-text" href="/users/{{request.user}}">{{request.user}}</a></li>
+						<li><a class="black-text" href="/create">Create</a></li>
+						<li><a class="black-text" href="/favourites">Favourites</a></li> 
+						<li><a class="black-text" href="/">Home</a></li>
+						<li><a class="black-text" href="/logout">Logout</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+			<ul class="sidenav" id="mobile-demo">
+			    <li><a class="black-text" href="/users/{{request.user}}">{{request.user}}</a></li>
+				<li><a class="black-text" href="/create">Create</a></li> 
+				<li><a class="black-text" href="/favourites">Favourites</a></li> 
+				<li><a class="black-text" href="/">Home</a></li>
+				<li><a class="black-text" href="/logout">Logout</a></li>
+			</ul>
+
+		{% endif %}
+		{% if messages %}
+			{% for message in messages %}
+				<script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
+			{% endfor %}
+		{% endif %}
+
+		<main class = "main" style = "flex: 1 0 auto;">
+			<div class = "container" style="margin-top: 5%">
+				<br>
+				{% block content %}
+				{% endblock %}
+			</div>
+		</main>
+
+		<br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+		 <footer class="page-footer grey darken-4">
+		  <div class="container">
+			<div class="row">
+			  <div class="col l6 s12">
+				<h5 class="white-text">Notesite</h5>
+			  </div>
+			</div>
+		  </div>
+		  <div class="footer-copyright">
+			<div class="container">
+			© 2023 Copyright Notesite
+			<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+			</div>
+		  </div>
+		</footer>
+		
+	</body>
+</html>
