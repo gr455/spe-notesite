@@ -43,10 +43,10 @@ urlpatterns = [
         path("<var2>/", include([
             path("", views.indirect_path, name = "ipath"),
             path("<var3>/", include([
-                path("", views.show, name = "show"),
-                path("open", views.open_document, name = "open")
+            	path("", views.show, name = "show"),
+            	path("open", views.open_document, name = "open")
 
-                ])),
+            	])),
         ])),
 
     ])),

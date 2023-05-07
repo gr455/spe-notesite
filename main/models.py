@@ -40,6 +40,15 @@ class Note(models.Model):
 	def getFavCount(self):
 		return Favourite.objects.filter(fav_note = self).count()
 
+class Tutorial(models.Model):
+	tutorial_title = models.CharField(max_length = 200)
+	tutorial_content = models.TextField()
+	tutorial_whenPublished = models.DateTimeField("Date Published", default = django.utils.timezone.now)
+	tutorial_chapter = models.ForeignKey(Chapter,
+										 default = 0,
+										 verbose_name = "Chapter",
+										 on_delete = models.CASCADE)
+
 class Favourite(models.Model):
 	fav_user = models.ForeignKey(User,
 								 default = 0,
@@ -49,12 +58,3 @@ class Favourite(models.Model):
 								 default = 0,
 								 verbose_name = "Note",
 								 on_delete = models.CASCADE)
-
-class Tutorial(models.Model):
-	tutorial_title = models.CharField(max_length = 200)
-	tutorial_content = models.TextField()
-	tutorial_whenPublished = models.DateTimeField("Date Published", default = django.utils.timezone.now)
-	tutorial_chapter = models.ForeignKey(Chapter,
-										 default = 0,
-										 verbose_name = "Chapter",
-										 on_delete = models.CASCADE)
