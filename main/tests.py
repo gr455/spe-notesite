@@ -23,6 +23,8 @@ class CourseTestCase(TestCase):
 
 class ChapterTestCase(TestCase):
 	def setUp(self):
+		models.Course.objects.create(course_name = "TestCourse1",
+									 course_code = "TST 101")
 		course = models.Course.objects.get(course_code = "TST 101") 
 		models.Chapter.objects.create(chapter_no = 1,
 									 chapter_name = "Chapter1ForCourse1",
@@ -43,6 +45,12 @@ class ChapterTestCase(TestCase):
 
 class NoteTestCase(TestCase):
 	def setUp(self):
+		models.Course.objects.create(course_name = "TestCourse1",
+									 course_code = "TST 101")
+		course = models.Course.objects.get(course_code = "TST 101") 
+		models.Chapter.objects.create(chapter_no = 1,
+									 chapter_name = "Chapter1ForCourse1",
+									 chapter_course = course)
 		chapter = models.Chapter.objects.get(chapter_no = 1)
 		models.Note.objects.create(note_title = "TestNote1",
 								   note_summary = "Test Note 1",
