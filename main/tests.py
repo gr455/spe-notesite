@@ -17,6 +17,47 @@ class CourseTestCase(TestCase):
 		models.Course.objects.create(course_name = "TestCourse3",
 									 course_code = "TST 103")
 
+	def test_course_delete(self):
+		course = models.Course.objects.get(course_code = "TST 103")
+		course.delete()
+
 class ChapterTestCase(TestCase):
 	def setUp(self):
-		pass
+		course = models.Course.objects.get(course_code = "TST 101") 
+		models.Chapter.objects.create(chapter_no = 1,
+									 chapter_name = "Chapter1ForCourse1",
+									 chapter_course = course)
+	def test_chapter_get(self):
+		chapter = models.Chapter.objects.get(chapter_no = 1)
+		self.assertEqual(chapter.chapter_name, "Chapter1ForCourse1")
+
+	def test_chapter_create(self):
+		course = models.Course.objects.get(course_code = "TST 101")
+		models.Chapter.objects.create(chapter_no = 2,
+									 chapter_name = "Chapter2ForCourse1",
+									 chapter_course = course)
+
+	def test_chapter_delete(self):
+		chapter = models.Chapter.objects.get(chapter_no = 2)
+		chapter.delete()
+
+class NoteTestCase(TestCase):
+	def setUp(self):
+		chapter = models.Chapter.objects.get(chapter_no = 1)
+		models.Note.objects.create(note_title = "TestNote1",
+								   note_summary = "Test Note 1",
+								   note_chapter = chapter)
+
+	def test_note_get(self):
+		note = models.Note.objects.get(note_title = "TestNote1")
+		self.assertEqual(note.note_summary, "Test Note 1")
+
+	def test_note_create(self):
+		chapter = models.Chapter.objects.get(chapter_no = 1)
+		models.Note.objects.create(note_title = "TestNote2",
+								   note_summary = "Test Note 2",
+								   note_chapter = chapter)
+
+	def test_note_delete(self):
+		note = models.Note.objects.get(note_title = "TestNote1")
+		note.delete()
