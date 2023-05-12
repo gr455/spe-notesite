@@ -18,7 +18,7 @@ class CourseTestCase(TestCase):
 									 course_code = "TST 103")
 
 	def test_course_delete(self):
-		course = models.Course.objects.get(course_code = "TST 103")
+		course = models.Course.objects.get(course_code = "TST 102")
 		course.delete()
 
 class ChapterTestCase(TestCase):
@@ -40,7 +40,7 @@ class ChapterTestCase(TestCase):
 									 chapter_course = course)
 
 	def test_chapter_delete(self):
-		chapter = models.Chapter.objects.get(chapter_no = 2)
+		chapter = models.Chapter.objects.get(chapter_no = 1)
 		chapter.delete()
 
 class NoteTestCase(TestCase):
