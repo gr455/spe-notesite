@@ -31,6 +31,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install deps
+        run:  pip install -r requirements.txt && pip install django-autocomplete-light && pip install whitenoise && pip install django-tinymce && pip install psycopg2==2.8.6
+
       - name: Build And Test
         run: python3 manage.py test
         env:
