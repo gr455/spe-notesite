@@ -1,0 +1,39 @@
+name: Notesite Continuous Integration
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mysupersecretpassword
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: notesite
+
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build And Test
+        run: python3 manage.py test
+        env:
+          PG_PASS: mysupersecretpassword
+          DATABASE_HOST: postgres
+          SECRET_KEY: testsecretkey
