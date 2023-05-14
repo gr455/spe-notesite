@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    name: postgres
+    app: notesite-component
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres
+      app: notesite-component
+  template:
+    metadata:
+      name: postgres
+      labels:
+        name: postgres
+        app: notesite-component
+    spec:
+      containers:
+      - name: postgres
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            value: "mysupersecretpassword"
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: trust
+          - name: POSTGRES_DB
+            value: notesite
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    name: postgres
+    app: notesite-component
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    name: postgres
+    app: notesite-component

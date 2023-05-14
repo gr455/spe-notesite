@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notesite
+  labels:
+    name: notesite
+    app: notesite-component
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: notesite
+      app: notesite-component
+  template:
+    metadata:
+      name: notesite
+      labels:
+        name: notesite
+        app: notesite-component
+    spec:
+      volumes:
+        - name: notesite-pv-storage
+          persistentVolumeClaim:
+            claimName: notesite-pv-claim
+      containers:
+      - name: notesite
+        image: ruturajmohite/notesite:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_HOST
+          value: "postgres"
+        - name: DATABASE_USER
+          value: "postgres"
+        - name: DATABASE_PASSWORD
+          value: "mysupersecretpassword"
+        - name: DATABASE_NAME
+          value: "notesite"
+        - name: SECRET_KEY
+          value: "supersecretkey"
+        volumeMounts:
+          - mountPath: "/app/media"
+            name: notesite-pv-storage
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notesite
+  labels:
+    name: notesite
+    app: notesite-component
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    name: notesite
+    app: notesite-component
