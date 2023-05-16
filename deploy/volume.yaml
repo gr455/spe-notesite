@@ -21,6 +21,7 @@ spec:
   storageClassName: manual
   accessModes:
     - ReadWriteOnce
+  volumeName: notesite-pv-volume
   resources:
     requests:
       storage: 20Mi
@@ -48,6 +49,7 @@ spec:
   storageClassName: manual
   accessModes:
     - ReadWriteOnce
+  volumeName: postgres-pv-volume
   resources:
     requests:
       storage: 20Mi
