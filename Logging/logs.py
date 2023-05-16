@@ -1,11 +1,11 @@
 import subprocess, time
 
-months = {"May":"07"}
+months = {"May":"05"}
 
 while (True):
     # Run the command and capture its output
     time.sleep(10)
-    output = subprocess.check_output('kubectl logs notesite-b7b9cf799-ndq67', shell=True)
+    output = subprocess.check_output('kubectl logs notesite-78b9b6f4b5-s5wkh', shell=True)
 
     # Open a file and write the output to it
     with open('ScriptLogs.log', 'w') as f:

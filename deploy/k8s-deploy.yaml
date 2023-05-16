@@ -1,0 +1,13 @@
+---
+
+- name: Apply Kubernetes YAMLs
+  hosts: localhost
+  tasks:
+    - name: Apply Volumes
+      command: kubectl apply -f /home/grass/Desktop/codes/spe-notesite/deploy/volume.yaml
+    
+    - name: Apply Postgres
+      command: kubectl apply -f /home/grass/Desktop/codes/spe-notesite/deploy/postgres.yaml
+
+    - name: Apply Notesite
+      command: kubectl apply -f /home/grass/Desktop/codes/spe-notesite/deploy/notesite.yaml
