@@ -15,10 +15,6 @@ WORKDIR /app
 COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
-RUN pip install django-autocomplete-light
-RUN pip install whitenoise
-RUN pip install django-tinymce
-RUN pip install psycopg2==2.8.6
 
 COPY . /app
 
